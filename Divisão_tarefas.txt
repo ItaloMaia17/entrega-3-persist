@@ -1,0 +1,17 @@
+Atividades desenvolvidas
+
+Dupla:
+    João Italo Maia alves 
+    Guilherme Rodrigues Nobre
+
+Tema: Sistema de gerenciamento de uma assistência técnica.
+
+Atividades desenvolvidas:
+    A divisão de tarefas segue a ordem do que foi pedido para a terceira entrega.
+
+1.Criação dos  modelos: Guilherme / Italo
+2. Criação de rotas: Italo / Guilherme
+3.Povoamento das coleções: Guilherme
+4.Main.py e database.py : Italo
+5.Readme : Italo
+3.Descrição das atividades realizadas: Guilherme
