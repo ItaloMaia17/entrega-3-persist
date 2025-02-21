@@ -12,13 +12,13 @@ router = APIRouter(
 engine = get_engine()
 
 # Rota para pegar todos as Peca do banco
-@router.get("/pecas/", response_model= list[Peca])
+@router.get("/", response_model= list[Peca])
 async def get_all_peca()-> list[Peca]:
     list_peca = await engine.find(Peca)
     return list_peca
 
 # Rota para pegar uma peça por id
-@router.get("/pecas/{peca_id}", response_model= Peca)
+@router.get("/{peca_id}", response_model= Peca)
 async def get_peca(peca_id: str)-> Peca:
     peca = await engine.find_one(Peca, Peca.id == ObjectId(peca_id))
     if not peca:
@@ -26,7 +26,7 @@ async def get_peca(peca_id: str)-> Peca:
     return peca
 
 # Rota para inserir um novo Peca no banco
-@router.post("/pecas/", response_model= Peca)
+@router.post("/", response_model= Peca)
 async def create_peca(peca: Peca)-> Peca:
     # Verifica se já existe uma peça com o mesmo nome
     peca_exist = await engine.find_one(Peca, Peca.nome == peca.nome)
@@ -38,7 +38,7 @@ async def create_peca(peca: Peca)-> Peca:
 
 
 # Rota para alterar dados de uma peça
-@router.put("/pecas/", response_model=Peca)
+@router.put("/", response_model=Peca)
 async def update_peca(peca_id: str, peca_data: dict)-> Peca:
     # verifica se o Peca esta no banco
     peca = await engine.find_one(Peca, Peca.id == ObjectId(peca_id))
@@ -52,7 +52,7 @@ async def update_peca(peca_id: str, peca_data: dict)-> Peca:
     return peca
 
 # Rota para deletar uma peça
-@router.delete("/pecas/{peca_id}")
+@router.delete("/{peca_id}")
 async def delete_peca(peca_id: str)-> dict:
     peca= await engine.find_one(Peca, Peca.id == ObjectId(peca_id))
     if not peca:

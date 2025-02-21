@@ -33,6 +33,17 @@ async def create_servico(servico: Servico) -> Servico:
         Servico.descricao == servico.descricao)
     if exist_servico:
         raise HTTPException(status_code=400, detail="Servico já cadastrado")
+    # Verifica se o dispositivo existe
+    dispositivo= await engine.find_one(Dispositivo, Dispositivo.id == servico.dispositivo.id)
+    if not dispositivo:
+        raise HTTPException(status_code=400, detail="Dispositivo não encontrado")
+    # Verifica se o tecnico existe  
+    tecnico= await engine.find_one(Tecnico, Tecnico.id == servico.tecnico.id)
+    if not tecnico:
+        raise HTTPException(status_code=404, detail="Tecnico não encontrado")
+    
+    
+    # Salva o servico no banco
     await engine.save(servico)
     return servico
 

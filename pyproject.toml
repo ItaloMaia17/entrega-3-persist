@@ -9,5 +9,6 @@ dependencies = [
     "motor[srv]>=3.7.0",
     "odmantic>=1.0.2",
     "pymongo[srv]>=4.11.1",
+    "pyproject-toml>=0.1.0",
     "python-dotenv>=1.0.1",
 ]

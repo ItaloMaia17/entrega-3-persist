@@ -12,13 +12,13 @@ router = APIRouter(
 engine = get_engine()
 
 # Rota para pegar todos os Dispositivos do banco
-@router.get("/dispositivos/", response_model= list[Dispositivo])
+@router.get("/", response_model= list[Dispositivo])
 async def get_all_disp()-> list[Dispositivo]:
     list_disp = await engine.find(Dispositivo)
     return list_disp
 
 # Rota para pegar um dispositivo por id
-@router.get("/dispositivos/{disp_id}", response_model= Dispositivo)
+@router.get("/{disp_id}", response_model= Dispositivo)
 async def get_disp(disp_id: str)-> Dispositivo:
     disp = await engine.find_one(Dispositivo, Dispositivo.id == ObjectId(disp_id))
     if not disp:
@@ -26,7 +26,7 @@ async def get_disp(disp_id: str)-> Dispositivo:
     return disp
 
 # Rota para inserir um novo Dispositivo no banco
-@router.post("/dispositivos/", response_model= Dispositivo)
+@router.post("/", response_model= Dispositivo)
 async def create_disp(dispositivo: Dispositivo)-> Dispositivo:
     # Verifica se já existe um dispositivo do mesmo modelo
     disp = await engine.find_one(Dispositivo, Dispositivo.modelo == dispositivo.modelo)
@@ -38,7 +38,7 @@ async def create_disp(dispositivo: Dispositivo)-> Dispositivo:
 
 
 # Rota para alterar dados de um Dispositivo
-@router.put("/dispositivos/", response_model=Dispositivo)
+@router.put("/", response_model=Dispositivo)
 async def update_disp(disp_id: str, disp_data: dict)-> Dispositivo:
     # verifica se o dispositivo esta no banco
     disp = await engine.find_one(Dispositivo, Dispositivo.id == ObjectId(disp_id))
@@ -52,7 +52,7 @@ async def update_disp(disp_id: str, disp_data: dict)-> Dispositivo:
     return disp
 
 # Rota para deletar um dispositivo
-@router.delete("/dispositivos/{disp_id}")
+@router.delete("/{disp_id}")
 async def delete_disp(disp_id: str)-> dict:
     disp= await engine.find_one(Dispositivo, Dispositivo.id == ObjectId(disp_id))
     if not disp:

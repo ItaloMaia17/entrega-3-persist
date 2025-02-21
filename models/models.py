@@ -1,6 +1,5 @@
 from odmantic import Model, Reference, ObjectId
 from datetime import datetime, timezone
-from typing import Optional, TYPE_CHECKING, List
 
 
 class Dispositivo(Model):
@@ -26,4 +25,4 @@ class Servico(Model):
     cadastrado_em: datetime = datetime.now(timezone.utc)
     dispositivo: Dispositivo= Reference()
     tecnico: Tecnico= Reference()   
-    pecas_ids: List[Peca]= [] #ids das peças utilizadas no serviço
+    pecas_ids: list[Peca]= [] #ids das peças utilizadas no serviço
