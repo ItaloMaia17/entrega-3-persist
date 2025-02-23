@@ -1,7 +1,7 @@
 # Sistema de gerenciamento de assistência técnica
 
 ## Descrição
-O objetivo do projeto é colocar em prática os conceitos aprendidos em aula desenvolvendo uma api REST utilizando FastAPI, SQLModel e um Banco de dados SQLite para realizar o armazenamento persistente dos dados.
+O objetivo do projeto é colocar em prática os conceitos aprendidos em aula desenvolvendo uma api REST utilizando FastAPI, e MongoDB para a persistência de dados.
 
 ## Pré-requisitos
 
