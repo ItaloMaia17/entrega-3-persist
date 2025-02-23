@@ -9,9 +9,13 @@ Tema: Sistema de gerenciamento de uma assistência técnica.
 Atividades desenvolvidas:
     A divisão de tarefas segue a ordem do que foi pedido para a terceira entrega.
 
-1.Criação dos  modelos: Guilherme / Italo
+1.Criação dos  modelos: Guilherme  
 2. Criação de rotas: Italo / Guilherme
+    dispositivo : Guilherme
+    peca: Italo
+    servico : Italo
+    tecnico : Italo
 3.Povoamento das coleções: Guilherme
 4.Main.py e database.py : Italo
-5.Readme : Italo
-3.Descrição das atividades realizadas: Guilherme
+5.Readme : Guilherme
+3.Descrição das atividades realizadas: Italo

@@ -5,12 +5,12 @@ O objetivo do projeto é colocar em prática os conceitos aprendidos em aula des
 
 ## Pré-requisitos
 
-- fastapi[standard]>=0.115.6
--    logging>=0.4.9.6
--    sqlmodel>=0.0.22
--    datetime>=5.5
-
-
+- "fastapi[standard]>=0.115.8",
+- "motor[srv]>=3.7.0",
+- "odmantic>=1.0.2",
+- "pymongo[srv]>=4.11.1",
+- "pyproject-toml>=0.1.0",
+- "python-dotenv>=1.0.1",
 
 
 ## Diagrama de Classes UML
@@ -21,35 +21,32 @@ O diagrama abaixo mostra a estrutura e os relacionamentos entre as entidades pre
 classDiagram
     direction RL
      class Dispositivo {
-        id: int
-        modelo: str
-        tipo: str
-        fabricante: str
-    }
-    class Peca {
-        id: int
-        nome: str 
-        tipo: str  
-        fabricante: str 
-        valor: float
-    }
-    class Servico {
-        id: int
-        tipo_de_servico: str
-        descricao: str
-        valor: float
-        cadastrado_em : date
-    }
-    class Tecnico {
-        id: int 
-        nome: str 
-        especialidade: str
-        contato: str
-        salario: float
-    }
-
-    Dispositivo "1"--*"*" Servico
-    Tecnico "1"--*"*" Servico
+    modelo: str
+    tipo: str
+    fabricante: str
+}
+class Peca{
+    nome: str
+    fabricante: str
+    preco: float
+}
+class Tecnico {
+    nome: str
+    especialidade: str
+    contato: str
+    salario: float
+}
+class Servico {
+    tipo_servico: str
+    descricao: str
+    valor: float
+    cadastrado_em: datetime
+    dispositivo: Dispositivo
+    tecnico: Tecnico
+    pecas_ass: list[Peca]
+}
+    Dispositivo "1"--"*" Servico
+    Tecnico "1"--"*" Servico
     Servico "*"--"*" Peca
 
 ```
