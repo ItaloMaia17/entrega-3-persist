@@ -13,8 +13,8 @@ engine = get_engine()
 
 # Rota para pegar todos os Dispositivos do banco
 @router.get("/", response_model= list[Dispositivo])
-async def get_all_disp()-> list[Dispositivo]:
-    list_disp = await engine.find(Dispositivo)
+async def get_all_disp(skip: int= 0, limit: int= 10)-> list[Dispositivo]:
+    list_disp = await engine.find(Dispositivo, skip=skip, limit=limit)
     return list_disp
 
 # Rota para pegar um dispositivo por id
@@ -24,6 +24,17 @@ async def get_disp(disp_id: str)-> Dispositivo:
     if not disp:
         raise HTTPException(status_code=404, detail="Dispositivo não encontrado")
     return disp
+
+# Rota para pegar dipositivo por modelo
+@router.get("/modelo/{disp_modelo}", response_model=list[Dispositivo])
+async def list_disp_by_model(modelo: str, skip: int= 0, limit: int= 10) -> list[Dispositivo]:
+    # Procura o dispositivo no banco
+    list_disp = await engine.find(Dispositivo, {"modelo": {"$regex": modelo, "$options":"i"}}, skip=skip, limit=limit)
+    # Verifica se o dispositivo foi encontrado
+    if not list_disp:
+        raise HTTPException(status_code=404, detail="Nenhuma correspondência encontrada")
+
+    return list_disp
 
 # Rota para inserir um novo Dispositivo no banco
 @router.post("/", response_model= Dispositivo)

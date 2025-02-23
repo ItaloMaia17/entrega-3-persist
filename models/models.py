@@ -19,10 +19,10 @@ class Tecnico(Model):
     salario: float
 
 class Servico(Model):
-    tipo_de_servico: str
+    tipo_servico: str
     descricao: str
     valor: float
     cadastrado_em: datetime = datetime.now(timezone.utc)
     dispositivo: Dispositivo= Reference()
     tecnico: Tecnico= Reference()   
-    pecas_ids: list[Peca]= [] #ids das peças utilizadas no serviço
+    pecas_ass: list[Peca]= [] #ids das peças utilizadas no serviço

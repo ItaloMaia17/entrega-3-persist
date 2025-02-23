@@ -13,8 +13,8 @@ engine = get_engine()
 
 # Rota para pegar todos os Tecnicos do banco
 @router.get("/", response_model=list[Tecnico])
-async def get_all_tecnicos() -> list[Tecnico]:
-    list_tecnicos = await engine.find(Tecnico)
+async def get_all_tecnicos(skip: int= 0, limit: int= 10) -> list[Tecnico]:
+    list_tecnicos = await engine.find(Tecnico,skip=skip, limit=limit)
     return list_tecnicos
 
 # Rota para pegar um tecnico por id
@@ -24,6 +24,17 @@ async def get_tecnico(tecnico_id: str) -> Tecnico:
     if not tecnico:
         raise HTTPException(status_code=404, detail="Tecnico não encontrado")
     return tecnico
+
+# Rota para pegar técnico por nome
+@router.get("/nome_tecnico/{nome_tec}", response_model=list[Tecnico])
+async def list_tecnico_by_name(nome: str, skip: int= 0, limit: int= 10) -> list[Tecnico]:
+    # Procura o técnico no banco
+    list_tecnico = await engine.find(Tecnico, {"nome": {"$regex": nome, "$options":"i"}}, skip=skip, limit=limit)
+    # Verifica se o técnico foi encontrado
+    if not list_tecnico:
+        raise HTTPException(status_code=404, detail="Nenhuma correspondência encontrada")
+
+    return list_tecnico
 
 # Rota para inserir um novo Tecnico no banco
 @router.post("/", response_model=Tecnico)

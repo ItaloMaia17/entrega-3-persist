@@ -13,8 +13,8 @@ engine = get_engine()
 
 # Rota para pegar todos as Peca do banco
 @router.get("/", response_model= list[Peca])
-async def get_all_peca()-> list[Peca]:
-    list_peca = await engine.find(Peca)
+async def get_all_peca(skip: int= 0, limit: int= 10)-> list[Peca]:
+    list_peca = await engine.find(Peca, skip=skip, limit=limit)
     return list_peca
 
 # Rota para pegar uma peça por id
@@ -24,6 +24,17 @@ async def get_peca(peca_id: str)-> Peca:
     if not peca:
         raise HTTPException(status_code=404, detail="Peca não encontrada")
     return peca
+
+# Rota para pegar peça por nome
+@router.get("/nome_peca/{nome_peca}", response_model=list[Peca])
+async def list_peca_by_name(nome: str, skip: int= 0, limit: int= 10) -> list[Peca]:
+    # Procura a peça no banco
+    list_peca = await engine.find(Peca, {"nome": {"$regex": nome, "$options":"i"}}, skip=skip, limit=limit)
+    # Verifica se a peça foi encontrada
+    if not list_peca:
+        raise HTTPException(status_code=404, detail="Nenhuma correspondência encontrada")
+
+    return list_peca
 
 # Rota para inserir um novo Peca no banco
 @router.post("/", response_model= Peca)
